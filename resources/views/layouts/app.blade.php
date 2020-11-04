@@ -64,6 +64,9 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                    <a href="{{ route('create') }}">
+                                      {{__('投稿する')}}
+                                    </a>
                                 </div>
                             </li>
                         @endguest

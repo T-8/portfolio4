@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['prefix' => 'post', 'middleware' => 'auth'], function(){
+        Route::get('index', 'PostController@index')->name('post.index');
+        Route::get('create', 'PostController@create')->name('post.create');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
