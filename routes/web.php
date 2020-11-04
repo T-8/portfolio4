@@ -20,6 +20,8 @@ Route::group(['prefix' => 'post', 'middleware' => 'auth'], function(){
         Route::get('create', 'PostController@create')->name('post.create');
 });
 
+Route::get('/mypage', 'MypageController@index')->name('mypage')->middleware('auth');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

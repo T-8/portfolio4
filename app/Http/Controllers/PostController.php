@@ -15,7 +15,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::paginate(10);
-        return view('index', compact('posts'));
+        return view('post.index', compact('posts'));
     }
 
     /**
@@ -25,7 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('create');
+        return view('post.create');
     }
 
     /**
