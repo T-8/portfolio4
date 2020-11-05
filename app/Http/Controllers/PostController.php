@@ -41,7 +41,7 @@ class PostController extends Controller
       $post->text = $request->input('text');
       $post->post_img = $request->input('post_img');
       $post->save();
-      return redirect('index');
+      return redirect('post/index');
     }
 
     /**

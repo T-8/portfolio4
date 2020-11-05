@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::group(['prefix' => 'post', 'middleware' => 'auth'], function(){
         Route::get('index', 'PostController@index')->name('post.index');
         Route::get('create', 'PostController@create')->name('post.create');
+        Route::post('store', 'PostController@store')->name('post.store');
 });
 
 Route::get('/mypage', 'MypageController@index')->name('mypage')->middleware('auth');

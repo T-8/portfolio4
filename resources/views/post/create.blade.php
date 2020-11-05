@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                  <form action="" method="post" class="form-group">
+                  <form action="{{route('post.store')}}" method="post" class="form-group">
                     @csrf
                     タイトル
                     <input type="text" name="title" class="form-control">
@@ -16,6 +16,7 @@
                     <textarea name="text" class="form-control" rows="7">
                     </textarea>
                     <br>
+                    
                     画像
                     <div class="custom-file col-md-6">
                       <input type="file" class="custom-file-input form-control" id="inputFile" name="post_img">
