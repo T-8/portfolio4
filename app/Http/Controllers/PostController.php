@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Comment;
+use App\User;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -12,9 +15,15 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::paginate(10);
+        $search = $request->input('search');
+        
+        $posts = Post::orderBy('updated_at','desc')
+        ->where('title','like','%'.$search.'%')
+        ->where('text','like','%'.$search.'%')
+        ->paginate(10);
+
         return view('post.index', compact('posts'));
     }
 
@@ -39,9 +48,16 @@ class PostController extends Controller
       $post = new Post;
       $post->title = $request->input('title');
       $post->text = $request->input('text');
-      $post->post_img = $request->input('post_img');
+
+      if($request->file('post_img')){
+        $image = $request->file('post_img')->store('public/image');
+        $image = str_replace('public/image/', '', $image);
+        $post->post_img = $image;
+      }
+
+      $post->user_id = $request->user()->id;
       $post->save();
-      return redirect('post/index');
+      return redirect('/index');
     }
 
     /**
@@ -53,8 +69,19 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
+        $comments = Comment::orderBy('updated_at','desc')
+        ->where('post_id', $id)
+        ->paginate(15);
+        return view('post.show', compact('post','comments'));
+    }
 
-        return view('show', compact('post'));
+    public function no_auth_show($id)
+    {
+        $post = Post::find($id);
+        $comments = Comment::orderBy('updated_at','desc')
+        ->where('post_id', $id)
+        ->paginate(15);
+        return view('post.no_auth_show', compact('post', 'comments'));
     }
 
     /**
@@ -66,7 +93,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-        return view('edit', compact('post'));
+        return view('post.edit', compact('post'));
     }
 
     /**
@@ -81,9 +108,15 @@ class PostController extends Controller
       $post = Post::find($id);
       $post->title = $request->input('title');
       $post->text = $request->input('text');
-      $post->post_img = $request->input('post_img');
+
+      if($request->file('post_img')){
+        $image = $request->file('post_img')->store('public/image');
+        $image = str_replace('public/image/', '', $image);
+        $post->post_img = $image;
+      }
+
       $post->save();
-      return redirect('index');
+      return redirect('/show/'.$id);
     }
 
     /**
@@ -95,7 +128,12 @@ class PostController extends Controller
     public function destroy($id)
     {
       $post = Post::find($id);
+      $comments = Comment::where('post_id', $id)->get();
       $post->delete();
-      return redirect('index');
+      foreach ($comments as $comment){
+        $comment->delete();
+      }
+
+      return redirect('/index');
     }
 }

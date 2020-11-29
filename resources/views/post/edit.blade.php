@@ -6,15 +6,14 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                  <form action="{{route('post.store')}}" method="post" class="form-group" enctype="multipart/form-data">
+                  <form action="{{route('post.update', ['id' => $post->id])}}" method="post" class="form-group" enctype="multipart/form-data">
                     @csrf
                     タイトル
-                    <input type="text" name="title" class="form-control">
+                    <input type="text" name="title" class="form-control" value="{{ $post->title }}">
                     <br>
 
                     コメント
-                    <textarea name="text" class="form-control" rows="7">
-                    </textarea>
+                    <textarea name="text" class="form-control" rows="7">{{$post->text}}</textarea>
                     <br>
 
                     画像
@@ -31,7 +30,7 @@
                     </div>
                     <br>
 
-                    <input type="submit" class="btn btn-info float-right" value="投稿する">
+                    <input type="submit" class="btn btn-info float-right" value="更新する">
                   </form>
                 </div>
             </div>

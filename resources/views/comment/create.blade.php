@@ -6,14 +6,10 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                  <form action="{{route('post.store')}}" method="post" class="form-group" enctype="multipart/form-data">
+                  <form action="{{route('comment.store', ['id' => $post->id])}}" method="post" class="form-group" enctype="multipart/form-data">
                     @csrf
-                    タイトル
-                    <input type="text" name="title" class="form-control">
-                    <br>
-
                     コメント
-                    <textarea name="text" class="form-control" rows="7">
+                    <textarea name="comment" class="form-control" rows="7">
                     </textarea>
                     <br>
 
@@ -21,7 +17,7 @@
                     <div class="form-group">
                       <div class="input-group">
                         <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="inputFile" name="post_img">
+                          <input type="file" class="custom-file-input" id="inputFile" name="comment_img">
                           <label class="custom-file-label" for="inputFile" data-browse="参照">ファイルを選択</label>
                         </div>
                         <div class="input-group-append">
