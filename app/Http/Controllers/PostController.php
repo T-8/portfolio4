@@ -18,7 +18,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        
+
         $posts = Post::orderBy('updated_at','desc')
         ->where('title','like','%'.$search.'%')
         ->where('text','like','%'.$search.'%')
@@ -57,7 +57,7 @@ class PostController extends Controller
 
       $post->user_id = $request->user()->id;
       $post->save();
-      return redirect('/index');
+      return redirect('/');
     }
 
     /**
@@ -134,6 +134,6 @@ class PostController extends Controller
         $comment->delete();
       }
 
-      return redirect('/index');
+      return redirect('/');
     }
 }

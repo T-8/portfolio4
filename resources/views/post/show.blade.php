@@ -9,9 +9,7 @@
                     {{ $post->title }}
                 </div>
                 <div class="card-body">
-                  <div class="text h4">
-                      {{ $post->text }}
-                  </div>
+                  <div class="text" style="white-space:pre-wrap;">{{$post->text}}</div>
                   @if(isset($post->post_img))
                   <div class="post_img text-center">
                       <img src="{{asset('storage/image/'.$post->post_img)}}" alt="{{ $post->post_img }}" style="width:350px;height:250px;">
@@ -57,9 +55,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                  <div class="title">
-                    {{ $comment->comment }}
-                  </div>
+                  <div class="title" style="white-space:pre-wrap;">{{$comment->comment}}</div>
                   @if(isset($comment->comment_img))
                   <div class="comment_img text-center">
                       <img src="{{asset('storage/image/'.$comment->comment_img)}}" alt="{{ $comment->comment_img }}" style="width:350px;height:250px;">

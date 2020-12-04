@@ -11,11 +11,13 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
 
-Route::get('index', 'PostController@index')->name('post.index');
+Route::get('/', 'PostController@index')->name('post.index');
 Route::get('show/{id}', 'PostController@show')->name('post.show');
 Route::get('no_auth_show/{id}', 'PostController@no_auth_show')->name('post.no_auth_show');
 

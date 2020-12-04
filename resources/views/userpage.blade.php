@@ -16,9 +16,7 @@
                     <img src="{{asset('image/noimage.jpg')}}" alt="" style="width:150px;height:150px">
                     @endif
                   </div>
-                  <div class="float-left" style="width:500px;">
-                      {{ $user->comment }}
-                  </div>
+                  <div class="float-left" style="width:500px; white-space:pre-wrap;">{{$user->comment}}</div>
                 </div>
             </div>
             @if(Auth::user()->id == $user->id)
