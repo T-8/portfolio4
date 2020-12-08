@@ -120,6 +120,7 @@ return [
       'title' => 'タイトル',
       'text' => 'コメント',
       'comment' => 'コメント',
+      'password' => 'パスワード',
     ],
 
 ];
