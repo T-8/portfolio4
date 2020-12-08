@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\http\Requests\ValidComment;
 use App\Models\Post;
 use App\Models\Comment;
 use App\User;
@@ -16,7 +17,7 @@ class CommentController extends Controller
       return view('comment.create', compact('post'));
   }
 
-  public function store(Request $request, $id)
+  public function store(ValidComment $request, $id)
   {
     $comment = new Comment;
     $comment->comment = $request->input('comment');

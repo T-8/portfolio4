@@ -8,6 +8,15 @@
                 <div class="card-body">
                   <form action="{{route('comment.store', ['id' => $post->id])}}" method="post" class="form-group" enctype="multipart/form-data">
                     @csrf
+                    @if($errors->any())
+                    <div class="alert alert-danger">
+                      <ul>
+                        @foreach($errors->all() as $error)
+                          <li>{{$error}}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                    @endif
                     コメント
                     <textarea name="comment" class="form-control" rows="7">
                     </textarea>

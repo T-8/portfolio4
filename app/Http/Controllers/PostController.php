@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidPost;
 use App\Models\Post;
 use App\Models\Comment;
 use App\User;
@@ -21,8 +22,7 @@ class PostController extends Controller
 
         $posts = Post::orderBy('updated_at','desc')
         ->where('title','like','%'.$search.'%')
-        ->where('text','like','%'.$search.'%')
-        ->paginate(10);
+        ->paginate(5);
 
         return view('post.index', compact('posts'));
     }
@@ -43,7 +43,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidPost $request)
     {
       $post = new Post;
       $post->title = $request->input('title');
@@ -69,7 +69,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        $comments = Comment::orderBy('updated_at','desc')
+        $comments = Comment::orderBy('updated_at','asc')
         ->where('post_id', $id)
         ->paginate(15);
         return view('post.show', compact('post','comments'));
@@ -78,7 +78,7 @@ class PostController extends Controller
     public function no_auth_show($id)
     {
         $post = Post::find($id);
-        $comments = Comment::orderBy('updated_at','desc')
+        $comments = Comment::orderBy('updated_at','asc')
         ->where('post_id', $id)
         ->paginate(15);
         return view('post.no_auth_show', compact('post', 'comments'));
